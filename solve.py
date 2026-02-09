@@ -126,6 +126,14 @@ while T > T_min:
                 best_mse = current_mse
                 print(f"Iter {iteration}, T={T:.4f}: New best MSE = {best_mse:.6f}")
 
+                # Save checkpoint on every improvement
+                perm = []
+                for inp_idx, out_idx in best_pairs:
+                    perm.extend([inp_idx, out_idx])
+                perm.append(last_layer_idx)
+                with open("solution.txt", "w") as f:
+                    f.write(",".join(map(str, perm)))
+
     T *= alpha
     iteration += 1
 
